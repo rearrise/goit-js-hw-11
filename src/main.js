@@ -1,21 +1,25 @@
 import { getImagesByQuery } from './js/pixabay-api.js';
-import { imageGallery } from './js/render-functions.js';
+import {
+  showLoader,
+  hideLoader,
+  clearGallery,
+  renderGallery,
+} from './js/render-functions.js';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
-import SimpleLightbox from 'simplelightbox';
-import 'simplelightbox/dist/simple-lightbox.min.css';
 const form = document.querySelector('.form');
-const galleryEl = document.querySelector('.gallery');
-const lightbox = new SimpleLightbox('.gallery a');
-const loader = document.querySelector('.loader');
+
 form.addEventListener('submit', event => {
   event.preventDefault();
   const query = event.currentTarget.elements['search-text'].value.trim();
-  galleryEl.innerHTML = '';
-  loader.classList.remove('hidden');
+  if (!query) {
+    return;
+  }
+  clearGallery();
+  showLoader();
   getImagesByQuery(query)
-    .then(response => {
-      if (response.data.hits.length === 0) {
+    .then(data => {
+      if (data.hits.length === 0) {
         iziToast.error({
           message:
             'Sorry, there are no images matching your search query. Please try again!',
@@ -23,14 +27,15 @@ form.addEventListener('submit', event => {
         });
         return;
       }
-      const markup = response.data.hits.map(imageGallery).join('');
-      galleryEl.innerHTML = markup;
-      lightbox.refresh();
+      renderGallery(data.hits);
     })
-    .catch(error => {
-      console.log(error);
+    .catch(() => {
+      iziToast.error({
+        message: 'Something went wrong. Please try again later.',
+        position: 'topRight',
+      });
     })
     .finally(() => {
-      loader.classList.add('hidden');
+      hideLoader();
     });
 });

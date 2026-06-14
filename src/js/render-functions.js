@@ -1,7 +1,11 @@
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
+const galleryEl = document.querySelector('.gallery');
+const loader = document.querySelector('.loader');
+const lightbox = new SimpleLightbox('.gallery a');
 
-export const imageGallery = imageInfo => {
+
+const imageGallery = imageInfo => {
   return `
     <li class="gallery-item">
       <a class="gallery-link" href="${imageInfo.largeImageURL}">
@@ -30,3 +34,23 @@ export const imageGallery = imageInfo => {
      </li>
   `;
 };
+
+export function clearGallery() {
+  galleryEl.innerHTML = '';
+}
+
+export function showLoader() {
+  loader.classList.remove('hidden');
+}
+
+export function hideLoader() {
+  loader.classList.add('hidden');
+}
+
+export function renderGallery(images) {
+  const markup = images.map(imageGallery).join('');
+
+  galleryEl.innerHTML = markup;
+
+  lightbox.refresh();
+}
