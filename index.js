@@ -1,28 +1,28 @@
-import{a as n,S as m,i as d}from"./assets/vendor-D_1dfqIW.js";(function(){const a=document.createElement("link").relList;if(a&&a.supports&&a.supports("modulepreload"))return;for(const e of document.querySelectorAll('link[rel="modulepreload"]'))i(e);new MutationObserver(e=>{for(const s of e)if(s.type==="childList")for(const l of s.addedNodes)l.tagName==="LINK"&&l.rel==="modulepreload"&&i(l)}).observe(document,{childList:!0,subtree:!0});function r(e){const s={};return e.integrity&&(s.integrity=e.integrity),e.referrerPolicy&&(s.referrerPolicy=e.referrerPolicy),e.crossOrigin==="use-credentials"?s.credentials="include":e.crossOrigin==="anonymous"?s.credentials="omit":s.credentials="same-origin",s}function i(e){if(e.ep)return;e.ep=!0;const s=r(e);fetch(e.href,s)}})();const u="56294783-65626070dc64ec0f139760a6f";function p(t){return n.get("https://pixabay.com/api/",{params:{key:u,q:t,image_type:"photo",orientation:"horizontal",safesearch:!0}})}const g=t=>`
+import{a as u,S as m,i as o}from"./assets/vendor-D_1dfqIW.js";(function(){const s=document.createElement("link").relList;if(s&&s.supports&&s.supports("modulepreload"))return;for(const t of document.querySelectorAll('link[rel="modulepreload"]'))l(t);new MutationObserver(t=>{for(const r of t)if(r.type==="childList")for(const a of r.addedNodes)a.tagName==="LINK"&&a.rel==="modulepreload"&&l(a)}).observe(document,{childList:!0,subtree:!0});function i(t){const r={};return t.integrity&&(r.integrity=t.integrity),t.referrerPolicy&&(r.referrerPolicy=t.referrerPolicy),t.crossOrigin==="use-credentials"?r.credentials="include":t.crossOrigin==="anonymous"?r.credentials="omit":r.credentials="same-origin",r}function l(t){if(t.ep)return;t.ep=!0;const r=i(t);fetch(t.href,r)}})();const d="56294783-65626070dc64ec0f139760a6f";function g(e){return u.get("https://pixabay.com/api/",{params:{key:d,q:e,image_type:"photo",orientation:"horizontal",safesearch:!0}}).then(s=>s.data)}const n=document.querySelector(".gallery"),c=document.querySelector(".loader"),p=new m(".gallery a"),f=e=>`
     <li class="gallery-item">
-      <a class="gallery-link" href="${t.largeImageURL}">
+      <a class="gallery-link" href="${e.largeImageURL}">
         <img
           class="gallery-image"
-          src="${t.webformatURL}"
-          alt="${t.tags}"
+          src="${e.webformatURL}"
+          alt="${e.tags}"
         />
       </a>
         <div class="gallery-data">
             <ul class="img-list">
                 <li class="img-data">
-                    <p class="img-text">Likes</p><p class="img-text">${t.likes}</p>
+                    <p class="img-text">Likes</p><p class="img-text">${e.likes}</p>
                 </li>
                 <li class="img-data">
-                    <p class="img-text">Views</p><p class="img-text">${t.views}</p>
+                    <p class="img-text">Views</p><p class="img-text">${e.views}</p>
                 </li>
                 <li class="img-data">
-                    <p class="img-text">Comments</p><p class="img-text">${t.comments}</p>
+                    <p class="img-text">Comments</p><p class="img-text">${e.comments}</p>
                 </li>
                 <li class="img-data">
-                    <p class="img-text">Downloads</p><p class="img-text">${t.downloads}</p>
+                    <p class="img-text">Downloads</p><p class="img-text">${e.downloads}</p>
                 </li>
             </ul>
         </div>
      </li>
-  `,f=document.querySelector(".form"),o=document.querySelector(".gallery"),y=new m(".gallery a"),c=document.querySelector(".loader");f.addEventListener("submit",t=>{t.preventDefault();const a=t.currentTarget.elements["search-text"].value.trim();o.innerHTML="",c.classList.remove("hidden"),p(a).then(r=>{if(r.data.hits.length===0){d.error({message:"Sorry, there are no images matching your search query. Please try again!",position:"topRight"});return}const i=r.data.hits.map(g).join("");o.innerHTML=i,y.refresh()}).catch(r=>{console.log(r)}).finally(()=>{c.classList.add("hidden")})});
+  `;function y(){n.innerHTML=""}function h(){c.classList.remove("hidden")}function L(){c.classList.add("hidden")}function x(e){const s=e.map(f).join("");n.innerHTML=s,p.refresh()}const w=document.querySelector(".form");w.addEventListener("submit",e=>{e.preventDefault();const s=e.currentTarget.elements["search-text"].value.trim();s&&(y(),h(),g(s).then(i=>{if(i.hits.length===0){o.error({message:"Sorry, there are no images matching your search query. Please try again!",position:"topRight"});return}x(i.hits)}).catch(()=>{o.error({message:"Something went wrong. Please try again later.",position:"topRight"})}).finally(()=>{L()}))});
 //# sourceMappingURL=index.js.map
